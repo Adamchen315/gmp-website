@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GMP Self-Check Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="form.html">GMP Self-Check</a>
+        <a href="training.html">Find Training</a>
+    </nav>
+    <header>
+        <h1>Is My Facility GMP-Ready?</h1>
+    </header>
+    <main>
+        <form>
+            <div class="question">
+                <p>Do you have SOPs for each manufacturing step?</p>
+                <label><input type="radio" name="q1" value="yes"> Yes</label>
+                <label><input type="radio" name="q1" value="no"> No</label>
+            </div>
+            <div class="question">
+                <p>Are batch records maintained electronically?</p>
+                <label><input type="radio" name="q2" value="yes"> Yes</label>
+                <label><input type="radio" name="q2" value="no"> No</label>
+            </div>
+            <div class="question">
+                <p>Do you operate a cleanroom for sterile filling?</p>
+                <label><input type="radio" name="q3" value="yes"> Yes</label>
+                <label><input type="radio" name="q3" value="no"> No</label>
+            </div>
+            <div class="question">
+                <p>Is every product tested before release?</p>
+                <label><input type="radio" name="q4" value="yes"> Yes</label>
+                <label><input type="radio" name="q4" value="no"> No</label>
+            </div>
+            <div class="question">
+                <p>Are your suppliers qualified and audited?</p>
+                <label><input type="radio" name="q5" value="yes"> Yes</label>
+                <label><input type="radio" name="q5" value="no"> No</label>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <div id="result" class="summary"></div>
+    </main>
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const answers = new FormData(event.target);
+            let score = 0;
+            for (let value of answers.values()) {
+                if (value === 'yes') {
+                    score++;
+                }
+            }
+            const resultDiv = document.getElementById('result');
+            let message = `You answered Yes to ${score} out of 5 questions.`;
+            if (score === 5) {
+                message += '<br>Excellent! Your facility appears to be well-prepared for GMP.';
+            } else if (score >= 3) {
+                message += '<br>Good start! You have a solid foundation, but there are areas for improvement.';
+            } else {
+                message += '<br>You have some work to do. Focus on implementing more GMP principles.';
+            }
+            resultDiv.innerHTML = message;
+        });
+    </script>
+</body>
+</html>
